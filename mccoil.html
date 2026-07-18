@@ -17,14 +17,14 @@
         body {
             background-color: #f4f6f9;
             color: #333;
-            padding: 20px;
+            padding: 10px; /* ลด Padding ลงเพื่อเพิ่มพื้นที่ให้จอมือถือ */
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 100%; /* ให้ยืดเต็มหน้าจอตามขนาดอุปกรณ์ */
             margin: 0 auto;
             background: #ffffff;
-            padding: 25px;
+            padding: 15px;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
@@ -32,14 +32,14 @@
         /* ส่วนหัวข้อระบบ */
         .header {
             text-align: center;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #eef2f5;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             color: #1e293b;
         }
 
         .header h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
         }
 
@@ -47,60 +47,62 @@
         .top-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
         /* ช่องรับบาร์โค้ด */
         .input-zone {
             background: #f8fafc;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
             border: 1px solid #e2e8f0;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .input-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-top: 5px;
         }
 
         .input-group input {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
+            width: 100%; /* แก้ไขปัญหาอินพุตยืดทะลุขอบ */
         }
 
         .input-group input:focus {
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
-        /* โซนตารางที่เลื่อนซ้ายขวาได้ */
+        /* โซนแก้ปัญหาส่วนล้นจอ: ตัวครอบตารางที่จะเกิด scrollbar แนวนอน */
         .table-responsive {
             width: 100%;
-            overflow-x: auto; /* เปิดให้เลื่อนซ้ายขวาเมื่อจอเล็ก */
+            overflow-x: auto; /* บังคับให้เกิดการเลื่อนซ้าย-ขวาเฉพาะในตาราง */
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             margin-bottom: 15px;
             background: #ffffff;
+            -webkit-overflow-scrolling: touch; /* เลื่อนลื่นบน iOS */
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            white-space: nowrap; /* ห้ามตัดคำ เพื่อให้เห็นข้อมูลเต็มช่องคอลัมน์ */
         }
 
         th, td {
-            padding: 14px 18px;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 15px;
+            padding: 12px 14px;
+            border: 1px solid #e2e8f0; /* ทำเส้นตารางให้ชัดเหมือน Excel */
+            font-size: 14px;
+            min-width: 110px; /* กำหนดความกว้างขั้นต่ำของแต่ละช่อง เพื่อไม่ให้ตัวอักษรซ้อนกัน */
+            white-space: nowrap; /* ห้ามตัวอักษรตัดขึ้นบรรทัดใหม่ */
         }
 
         th {
@@ -109,23 +111,25 @@
             font-weight: 600;
         }
 
-        tr:hover {
-            background-color: #f8fafc;
+        /* รูปแบบเมื่อผู้ใช้คลิกเลือกช่องเพื่อพิมพ์ (สไตล์ Excel) */
+        td[contenteditable="true"]:focus {
+            outline: 2px solid #2563eb;
+            background-color: #eff6ff;
         }
 
         .summary-text {
             font-size: 14px;
             color: #64748b;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-weight: 500;
         }
 
         /* โซนปุ่มคำสั่งด้านล่าง */
         .bottom-actions {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 15px;
+            grid-template-columns: 1fr; /* บนมือถือแสดงแถวละปุ่มเพื่อความชัดเจน */
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
         /* ปุ่มต่างๆ */
@@ -142,44 +146,39 @@
             cursor: pointer;
             transition: all 0.2s ease;
             color: white;
+            width: 100%;
         }
 
         .btn:active {
             transform: scale(0.98);
         }
 
-        /* สีปุ่มเฉพาะกิจ */
-        .btn-photo { background-color: #2563eb; } /* น้ำเงิน */
-        .btn-scan { background-color: #10b981; }  /* เขียว */
-        .btn-add { background-color: #475569; }   /* เทาเข้ม */
+        /* สีปุ่ม */
+        .btn-photo { background-color: #2563eb; } 
+        .btn-scan { background-color: #10b981; }  
+        .btn-add { background-color: #475569; width: auto; }   
         
-        .btn-sloc { background-color: #f59e0b; }  /* ส้ม */
-        .btn-cut { background-color: #d97706; }   /* ส้มเข้ม */
-        .btn-clear { background-color: #ef4444; } /* แดง */
-        
-        .btn-export { 
-            background-color: #15803d; 
-            grid-column: span 3; /* ยืดเต็มความกว้างด้านล่างสุด */
-            margin-top: 5px;
-        }
+        .btn-sloc { background-color: #f59e0b; }  
+        .btn-cut { background-color: #d97706; }   
+        .btn-clear { background-color: #ef4444; } 
+        .btn-export { background-color: #15803d; }
 
         .btn-delete {
             background-color: #fee2e2;
             color: #ef4444;
-            padding: 6px 12px;
-            font-size: 13px;
+            padding: 4px 8px;
+            font-size: 12px;
             border-radius: 4px;
+            width: auto;
         }
-        .btn-delete:hover { background-color: #fca5a5; color: white; }
-
-        /* ปรับแต่งสำหรับหน้าจอมือถือ */
-        @media (max-width: 600px) {
-            .top-actions, .bottom-actions {
-                grid-template-columns: 1fr;
-            }
-            .btn-export {
-                grid-column: span 1;
-            }
+        
+        /* ปรับหน้าจอเมื่อเปิดบนคอมพิวเตอร์แนวนอน */
+        @media (min-width: 768px) {
+            body { padding: 20px; }
+            .container { max-width: 1200px; padding: 25px; }
+            .header h1 { font-size: 24px; }
+            .bottom-actions { grid-template-columns: repeat(3, 1fr); }
+            .btn-export { grid-column: span 3; }
         }
     </style>
 </head>
@@ -206,7 +205,7 @@
         </div>
     </div>
 
-    <!-- โซนตารางข้อมูลขยายเต็มตัวอักษร เลื่อนซ้ายขวาได้ -->
+    <!-- โซนตารางข้อมูลที่แก้ไขได้เหมือน Excel และมี Scrollbar แนวนอนเมื่อล้นจอ -->
     <div class="table-responsive">
         <table id="dataTable">
             <thead>
@@ -217,18 +216,18 @@
                     <th>Weight</th>
                     <th>Maker</th>
                     <th>Inspection</th>
-                    <th style="text-align: center;">จัดการ</th>
+                    <th style="text-align: center; min-width: 70px;">จัดการ</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- ข้อมูลตัวอย่างเริ่มต้น สามารถแก้ไขหรือลบออกได้ -->
+                <!-- ทุกเซลล์ใช้คุณสมบัติ contenteditable="true" เพื่อแก้ไขได้โดยตรงโดยไม่ต้องมีกล่อง input -->
                 <tr>
-                    <td><input type="text" value="BT-2026-001" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-                    <td><input type="text" value="S01" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-                    <td><input type="text" value="1200mm" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-                    <td><input type="text" value="2.5" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-                    <td><input type="text" value="Maker-A" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-                    <td><input type="text" value="Pass" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
+                    <td contenteditable="true">BT-2026-001</td>
+                    <td contenteditable="true">S01</td>
+                    <td contenteditable="true">1200mm</td>
+                    <td contenteditable="true">2.5</td>
+                    <td contenteditable="true">Maker-A</td>
+                    <td contenteditable="true">Pass</td>
                     <td style="text-align: center;"><button class="btn btn-delete" onclick="deleteRow(this)">ลบ</button></td>
                 </tr>
             </tbody>
@@ -241,7 +240,6 @@
         <button class="btn btn-sloc" onclick="triggerAction('ย้าย Sloc')">🔄 ย้าย Sloc</button>
         <button class="btn btn-cut" onclick="triggerAction('ตัด')">✂️ ตัด</button>
         <button class="btn btn-clear" onclick="clearAllData()">🧹 ล้างข้อมูล</button>
-        
         <button class="btn btn-export" onclick="exportToExcel()">📥 ดาวน์โหลดไฟล์ Excel (Export)</button>
     </div>
 </div>
@@ -257,28 +255,45 @@
         }
     });
 
-    // ฟังก์ชันเพิ่มแถวใหม่ลงในตาราง
+    // ฟังก์ชันเพิ่มแถวใหม่ลงในตารางแบบเปิดสิทธิ์ให้พิมพ์แก้ได้ในเซลล์
     function addRowFromInput() {
         const value = barcodeInput.value.trim();
         if (value === '') return;
 
-        // ในขั้นตอนนี้ ระบบจะนำค่าที่สแกนใส่เข้าช่อง Batch No เป็นค่าตั้งต้น (คุณสามารถปรับตรรกะการแยกคำ/ตัวคั่นได้ในอนาคต)
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><input type="text" value="${value}" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-            <td><input type="text" value="" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-            <td><input type="text" value="" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-            <td><input type="text" value="" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-            <td><input type="text" value="" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
-            <td><input type="text" value="" style="border:none; background:transparent; font-size:15px; width:100%;"></td>
+            <td contenteditable="true">${value}</td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
             <td style="text-align: center;"><button class="btn btn-delete" onclick="deleteRow(this)">ลบ</button></td>
         `;
         
         dataTableBody.appendChild(tr);
-        barcodeInput.value = ''; // ล้างช่องค้นหาเพื่อสแกนรายการต่อไป
+        barcodeInput.value = ''; // ล้างช่องอินพุตเพื่อพร้อมสแกนรายการต่อไป
         barcodeInput.focus();   // ให้ cursor กลับมาโฟกัสช่องเติมข้อมูลเสมอ
         updateRowCount();
     }
 
     // ฟังก์ชันลบแถวที่เลือก
     function deleteRow(button) {
+        if(confirm("คุณต้องการลบแถวนี้ใช่หรือไม่?")) {
+            button.closest('tr').remove();
+            updateRowCount();
+        }
+    }
+
+    // ฟังก์ชันล้างข้อมูลทั้งหมดในตาราง
+    function clearAllData() {
+        if(confirm("⚠️ คุณต้องการล้างข้อมูลทั้งหมดในตารางใช่หรือไม่? Data จะหายทั้งหมด!")) {
+            dataTableBody.innerHTML = '';
+            updateRowCount();
+        }
+    }
+
+    // ฟังก์ชันอัปเดตจำนวนแถวสรุป
+    function updateRowCount() {
+        const rows = dataTableBody.querySelectorAll('tr').length;
+document.getElementById('rowCountText').innerText = 📊 สรุปรายการ: ทั้งหมด ${rows} แถว;}// ฟังก์ชันแจ้งเตือนการกดปุ่มทั่วไปfunction triggerAction(actionName) {alert(คุณได้กดปุ่ม: ${actionName});}// ฟังก์ชันอ่านข้อมูลจากตาราง (ดึงข้อความจาก TextContent ของเซลล์) และแปลงส่งออกเป็นไฟล์ Excelfunction exportToExcel() {const rows = dataTableBody.querySelectorAll('tr');if(rows.length === 0) {alert("ไม่มีข้อมูลในตารางสำหรับส่งออก");return;}const data = [['Batch No', 'Sloc', 'Size', 'Weight', 'Maker', 'Inspection']];rows.forEach(row => {const cells = row.querySelectorAll('td');if(cells.length >= 6) {data.push([cells[0].innerText.trim(),cells[1].innerText.trim(),cells[2].innerText.trim(),cells[3].innerText.trim(),cells[4].innerText.trim(),cells[5].innerText.trim()]);}});// ใช้ไลบรารี SheetJS บันทึกไฟล์const worksheet = XLSX.utils.aoa_to_sheet(data);const workbook = XLSX.utils.book_new();XLSX.utils.book_append_sheet(workbook, worksheet, "Coil Data");XLSX.writeFile(workbook, "Coil_Management_Data.xlsx");}
