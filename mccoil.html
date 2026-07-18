@@ -17,11 +17,11 @@
         body {
             background-color: #f4f6f9;
             color: #333;
-            padding: 10px; /* ลด Padding ลงเพื่อเพิ่มพื้นที่ให้จอมือถือ */
+            padding: 10px;
         }
 
         .container {
-            max-width: 100%; /* ให้ยืดเต็มหน้าจอตามขนาดอุปกรณ์ */
+            max-width: 100%;
             margin: 0 auto;
             background: #ffffff;
             padding: 15px;
@@ -73,22 +73,22 @@
             border-radius: 6px;
             font-size: 15px;
             outline: none;
-            width: 100%; /* แก้ไขปัญหาอินพุตยืดทะลุขอบ */
+            width: 100%;
         }
 
         .input-group input:focus {
             border-color: #3b82f6;
         }
 
-        /* โซนแก้ปัญหาส่วนล้นจอ: ตัวครอบตารางที่จะเกิด scrollbar แนวนอน */
+        /* โซนตารางที่จะเกิด scrollbar แนวนอนเมื่อจอล้น */
         .table-responsive {
             width: 100%;
-            overflow-x: auto; /* บังคับให้เกิดการเลื่อนซ้าย-ขวาเฉพาะในตาราง */
+            overflow-x: auto;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             margin-bottom: 15px;
             background: #ffffff;
-            -webkit-overflow-scrolling: touch; /* เลื่อนลื่นบน iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
@@ -98,12 +98,19 @@
         }
 
         th, td {
-            padding: 12px 14px;
-            border: 1px solid #e2e8f0; /* ทำเส้นตารางให้ชัดเหมือน Excel */
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1; /* ปรับเส้นตารางเข้มขึ้นเล็กน้อยเพื่อให้เห็นขอบข่ายช่องชัดเจนแบบ Excel */
             font-size: 14px;
-            min-width: 110px; /* กำหนดความกว้างขั้นต่ำของแต่ละช่อง เพื่อไม่ให้ตัวอักษรซ้อนกัน */
-            white-space: nowrap; /* ห้ามตัวอักษรตัดขึ้นบรรทัดใหม่ */
+            white-space: nowrap; /* ห้ามตัดบรรทัดเด็ดขาด เพื่อให้คอลัมน์กว้างพอดีข้อมูลยาวๆ */
         }
+
+        /* กำหนดขนาดขั้นต่ำเพื่อรองรับตัวอย่างข้อมูลยาวพิเศษของคุณ */
+        th:nth-child(1), td:nth-child(1) { min-width: 160px; } /* Batch No */
+        th:nth-child(2), td:nth-child(2) { min-width: 90px;  } /* Sloc */
+        th:nth-child(3), td:nth-child(3) { min-width: 140px; } /* Size */
+        th:nth-child(4), td:nth-child(4) { min-width: 100px; } /* Weight */
+        th:nth-child(5), td:nth-child(5) { min-width: 120px; } /* Maker */
+        th:nth-child(6), td:nth-child(6) { min-width: 140px; } /* Inspection */
 
         th {
             background-color: #f1f5f9;
@@ -111,7 +118,7 @@
             font-weight: 600;
         }
 
-        /* รูปแบบเมื่อผู้ใช้คลิกเลือกช่องเพื่อพิมพ์ (สไตล์ Excel) */
+        /* สไตล์เมื่อคลิกพิมพ์แก้ไขในเซลล์ */
         td[contenteditable="true"]:focus {
             outline: 2px solid #2563eb;
             background-color: #eff6ff;
@@ -127,12 +134,12 @@
         /* โซนปุ่มคำสั่งด้านล่าง */
         .bottom-actions {
             display: grid;
-            grid-template-columns: 1fr; /* บนมือถือแสดงแถวละปุ่มเพื่อความชัดเจน */
+            grid-template-columns: 1fr;
             gap: 10px;
             margin-bottom: 10px;
         }
 
-        /* ปุ่มต่างๆ */
+        /* ปุ่มคำสั่ง */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -153,7 +160,6 @@
             transform: scale(0.98);
         }
 
-        /* สีปุ่ม */
         .btn-photo { background-color: #2563eb; } 
         .btn-scan { background-color: #10b981; }  
         .btn-add { background-color: #475569; width: auto; }   
@@ -172,7 +178,6 @@
             width: auto;
         }
         
-        /* ปรับหน้าจอเมื่อเปิดบนคอมพิวเตอร์แนวนอน */
         @media (min-width: 768px) {
             body { padding: 20px; }
             .container { max-width: 1200px; padding: 25px; }
@@ -185,27 +190,23 @@
 <body>
 
 <div class="container">
-    <!-- ส่วนหัวข้อระบบ -->
     <div class="header">
         <h1>📊 ระบบจัดการCoil Mc Cr</h1>
     </div>
 
-    <!-- โซนนำเข้าข้อมูลด่วนด้านบน -->
     <div class="top-actions">
         <button class="btn btn-photo" onclick="triggerAction('ถ่ายรูป')">📷 ถ่ายรูป</button>
         <button class="btn btn-scan" onclick="triggerAction('สแกน')">🔍 สแกน</button>
     </div>
 
-    <!-- ช่องกรอกข้อมูลด่วน / ยิงบาร์โค้ด -->
     <div class="input-zone">
         <label for="barcodeInput" style="font-weight: 600; color: #475569; font-size: 14px;">กรอกข้อมูลแถวใหม่ (หรือยิงบาร์โค้ดแล้วกด Enter):</label>
         <div class="input-group">
-            <input type="text" id="barcodeInput" placeholder="พิมพ์ข้อมูลที่นี่ แล้วกด Enter..." autocomplete="off">
+            <input type="text" id="barcodeInput" placeholder="ตัวอย่าง: RN999999999999,AC01,0.99*1999*C,10000,Aungeang,B99999999999" autocomplete="off">
             <button class="btn btn-add" onclick="addRowFromInput()">เพิ่มแถว</button>
         </div>
     </div>
 
-    <!-- โซนตารางข้อมูลที่แก้ไขได้เหมือน Excel และมี Scrollbar แนวนอนเมื่อล้นจอ -->
     <div class="table-responsive">
         <table id="dataTable">
             <thead>
@@ -220,14 +221,14 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- ทุกเซลล์ใช้คุณสมบัติ contenteditable="true" เพื่อแก้ไขได้โดยตรงโดยไม่ต้องมีกล่อง input -->
+                <!-- ข้อมูลตัวอย่างเริ่มต้นตามรูปแบบที่คุณต้องการ -->
                 <tr>
-                    <td contenteditable="true">BT-2026-001</td>
-                    <td contenteditable="true">S01</td>
-                    <td contenteditable="true">1200mm</td>
-                    <td contenteditable="true">2.5</td>
-                    <td contenteditable="true">Maker-A</td>
-                    <td contenteditable="true">Pass</td>
+                    <td contenteditable="true">RN999999999999</td>
+                    <td contenteditable="true">AC01</td>
+                    <td contenteditable="true">0.99*1999*C</td>
+                    <td contenteditable="true">10000</td>
+                    <td contenteditable="true">Aungeang</td>
+                    <td contenteditable="true">B99999999999</td>
                     <td style="text-align: center;"><button class="btn btn-delete" onclick="deleteRow(this)">ลบ</button></td>
                 </tr>
             </tbody>
@@ -235,7 +236,6 @@
     </div>
     <div class="summary-text" id="rowCountText">📊 สรุปรายการ: ทั้งหมด 1 แถว</div>
 
-    <!-- โซนปุ่มคำสั่งด้านล่าง -->
     <div class="bottom-actions">
         <button class="btn btn-sloc" onclick="triggerAction('ย้าย Sloc')">🔄 ย้าย Sloc</button>
         <button class="btn btn-cut" onclick="triggerAction('ตัด')">✂️ ตัด</button>
@@ -248,36 +248,44 @@
     const barcodeInput = document.getElementById('barcodeInput');
     const dataTableBody = document.querySelector('#dataTable tbody');
 
-    // ดักจับเหตุการณ์เมื่อกดปุ่ม Enter ในช่องกรอกข้อมูลด่วน
     barcodeInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             addRowFromInput();
         }
     });
 
-    // ฟังก์ชันเพิ่มแถวใหม่ลงในตารางแบบเปิดสิทธิ์ให้พิมพ์แก้ได้ในเซลล์
     function addRowFromInput() {
         const value = barcodeInput.value.trim();
         if (value === '') return;
 
+        // แยกข้อมูลด้วยเครื่องหมายจุลภาค (,)
+        const items = value.split(',');
+        
+        // เตรียมข้อมูลให้ครบ 6 ช่อง (ถ้าพิมพ์มาไม่ครบ จะปล่อยให้เป็นช่องว่างแทน)
+        const batchNo = items[0] ? items[0].trim() : '';
+        const sloc = items[1] ? items[1].trim() : '';
+        const size = items[2] ? items[2].trim() : '';
+        const weight = items[3] ? items[3].trim() : '';
+        const maker = items[4] ? items[4].trim() : '';
+        const inspection = items[5] ? items[5].trim() : '';
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td contenteditable="true">${value}</td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+            <td contenteditable="true">${batchNo}</td>
+            <td contenteditable="true">${sloc}</td>
+            <td contenteditable="true">${size}</td>
+            <td contenteditable="true">${weight}</td>
+            <td contenteditable="true">${maker}</td>
+            <td contenteditable="true">${inspection}</td>
             <td style="text-align: center;"><button class="btn btn-delete" onclick="deleteRow(this)">ลบ</button></td>
         `;
         
         dataTableBody.appendChild(tr);
-        barcodeInput.value = ''; // ล้างช่องอินพุตเพื่อพร้อมสแกนรายการต่อไป
-        barcodeInput.focus();   // ให้ cursor กลับมาโฟกัสช่องเติมข้อมูลเสมอ
+        barcodeInput.value = ''; 
+        barcodeInput.focus();   
         updateRowCount();
     }
 
-    // ฟังก์ชันลบแถวที่เลือก
     function deleteRow(button) {
         if(confirm("คุณต้องการลบแถวนี้ใช่หรือไม่?")) {
             button.closest('tr').remove();
@@ -285,15 +293,11 @@
         }
     }
 
-    // ฟังก์ชันล้างข้อมูลทั้งหมดในตาราง
     function clearAllData() {
         if(confirm("⚠️ คุณต้องการล้างข้อมูลทั้งหมดในตารางใช่หรือไม่? Data จะหายทั้งหมด!")) {
             dataTableBody.innerHTML = '';
             updateRowCount();
         }
+        function updateRowCount() {const rows = dataTableBody.querySelectorAll('tr').length;document.getElementById('rowCountText').innerText = 📊 สรุปรายการ: ทั้งหมด ${rows} แถว;}function triggerAction(actionName) {alert(คุณได้กดปุ่ม: ${actionName});}function exportToExcel() {const rows = dataTableBody.querySelectorAll('tr');if(rows.length === 0) {alert("ไม่มีข้อมูลในตารางสำหรับส่งออก");return;}const data = [['Batch No', 'Sloc', 'Size', 'Weight', 'Maker', 'Inspection']];rows.forEach(row => {const cells = row.querySelectorAll('td');if(cells.length >= 6) {data.push([cells[0].innerText.trim(),cells[1].innerText.trim(),cells[2].innerText.trim(),cells[3].innerText.trim(),cells[4].innerText.trim(),cells[5].innerText.trim()]);}});const worksheet = XLSX.utils.aoa_to_sheet(data);const workbook = XLSX.utils.book_new();XLSX.utils.book_append_sheet(workbook, worksheet, "Coil Data");XLSX.writeFile(workbook, "Coil_Management_Data.xlsx");}
     }
 
-    // ฟังก์ชันอัปเดตจำนวนแถวสรุป
-    function updateRowCount() {
-        const rows = dataTableBody.querySelectorAll('tr').length;
-document.getElementById('rowCountText').innerText = 📊 สรุปรายการ: ทั้งหมด ${rows} แถว;}// ฟังก์ชันแจ้งเตือนการกดปุ่มทั่วไปfunction triggerAction(actionName) {alert(คุณได้กดปุ่ม: ${actionName});}// ฟังก์ชันอ่านข้อมูลจากตาราง (ดึงข้อความจาก TextContent ของเซลล์) และแปลงส่งออกเป็นไฟล์ Excelfunction exportToExcel() {const rows = dataTableBody.querySelectorAll('tr');if(rows.length === 0) {alert("ไม่มีข้อมูลในตารางสำหรับส่งออก");return;}const data = [['Batch No', 'Sloc', 'Size', 'Weight', 'Maker', 'Inspection']];rows.forEach(row => {const cells = row.querySelectorAll('td');if(cells.length >= 6) {data.push([cells[0].innerText.trim(),cells[1].innerText.trim(),cells[2].innerText.trim(),cells[3].innerText.trim(),cells[4].innerText.trim(),cells[5].innerText.trim()]);}});// ใช้ไลบรารี SheetJS บันทึกไฟล์const worksheet = XLSX.utils.aoa_to_sheet(data);const workbook = XLSX.utils.book_new();XLSX.utils.book_append_sheet(workbook, worksheet, "Coil Data");XLSX.writeFile(workbook, "Coil_Management_Data.xlsx");}
